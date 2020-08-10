@@ -1,12 +1,13 @@
 import java.io.*;
+import java.math.BigInteger;
 import java.util.*;
 
 public class Main {
     
     public static class Case{
-        int oddNum;
-        int evenNum;
-        public Case(int oddNum, int evenNum){
+        long oddNum;
+        long evenNum;
+        public Case(long oddNum, long evenNum){
             this.oddNum = oddNum;
             this.evenNum = evenNum;
         }
@@ -20,7 +21,6 @@ public class Main {
         int T = scan.nextInt();
         scan.nextLine();
 
-
         ArrayList<Integer> inputList = new ArrayList<>();
         for(int i = 0; i < T; i ++){
             inputList.add(scan.nextInt());
@@ -32,19 +32,21 @@ public class Main {
         tabulation[1] = new Case(1, 1);
         tabulation[2] = new Case(2, 2);
 
-        int tmpOdd;
-        int tmpEven;
+        long tmpOdd;
+        long tmpEven;
 
         for(int i = 3;i<tabulation.length;i++){
             
-            tmpOdd = tabulation[i-3].evenNum + 1;
-            tmpOdd += tabulation[i-2].evenNum + 1;
-            tmpOdd += tabulation[i-1].evenNum + 1;
-
-            tmpEven = tabulation[i-3].oddNum + 1;
-            tmpEven += tabulation[i-2].oddNum + 1;
-            tmpEven += tabulation[i-1].oddNum + 1;
+            tmpOdd = tabulation[i-3].evenNum;
+            tmpOdd += tabulation[i-2].evenNum;
+            tmpOdd += tabulation[i-1].evenNum;
+            tmpOdd = (tmpOdd > 1000000009) ? tmpOdd % 1000000009 : tmpOdd;
             
+            tmpEven = tabulation[i-3].oddNum;
+            tmpEven += tabulation[i-2].oddNum;
+            tmpEven += tabulation[i-1].oddNum;
+            tmpEven = (tmpEven > 1000000009) ? tmpEven % 1000000009 : tmpEven;
+
             tabulation[i] = new Case(tmpOdd, tmpEven);
         }
         
